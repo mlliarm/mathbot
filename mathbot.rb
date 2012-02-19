@@ -6,7 +6,7 @@ bot = Cinch::Bot.new do
   configure do |c|
     c.server   = "irc.tenthbit.net"
     c.nick     = "mathbot"
-    c.channels = ["#bots"]
+    c.channels = ["#offtopic", "#programming", "#bots"]
   end
 
   helpers do

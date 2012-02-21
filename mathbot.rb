@@ -28,7 +28,7 @@ bot = Cinch::Bot.new do
     end
   end
 
-  on :message, /^#{Regexp.escape nick}\S*\s*(.+)$/ do |m, code|
+  on :message, /^#{Regexp.escape nick}\S*[:,]\s*(.+)$/ do |m, code|
     m.reply(shorten_url(mathtex_url(code)), true)
   end
 end

@@ -1,12 +1,22 @@
 require 'cinch'
 require 'cgi'
 require 'patron'
+require 'configru'
+
+Configru.load do
+  just 'config.yml'
+
+  defaults do
+    port 6667
+  end
+end
 
 bot = Cinch::Bot.new do
   configure do |c|
-    c.server   = "irc.tenthbit.net"
-    c.nick     = "mathbot"
-    c.channels = ["#offtopic", "#programming", "#bots"]
+    c.server   = Configru.server
+    c.port     = Configru.port
+    c.nick     = Configru.nick
+    c.channels = Configru.channels
   end
 
   helpers do

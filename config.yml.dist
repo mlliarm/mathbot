@@ -1,0 +1,4 @@
+nick: mathbot
+server: irc.example.net
+channels:
+  - '#example'

@@ -1,5 +1,5 @@
 require 'cinch'
-require 'cgi'
+require 'uri'
 require 'patron'
 require 'configru'
 
@@ -21,7 +21,7 @@ bot = Cinch::Bot.new do
 
   helpers do
     def mathtex_url(code)
-      "http://www.forkosh.com/mathtex.cgi?" + CGI.escape(code)
+      "http://www.forkosh.com/mathtex.cgi?" + URI.escape(code)
     end
 
     def shorten_url(url)
@@ -30,7 +30,7 @@ bot = Cinch::Bot.new do
       sess.base_url = "http://da.gd"
       sess.headers['User-Agent'] = 'mathbot/1.0'
 
-      resp = sess.get("/s?url=#{CGI.escape(url)}&text=1&strip=1")
+      resp = sess.get("/s?url=#{URI.escape(url)}&text=1&strip=1")
 
       return "Could not shorten URL. Oops!" if resp.status >= 400
 

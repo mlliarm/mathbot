@@ -1,5 +1,5 @@
 require 'cinch'
-require 'uri'
+require 'cgi'
 require 'patron'
 require 'configru'
 
@@ -20,26 +20,23 @@ bot = Cinch::Bot.new do
   end
 
   helpers do
-    def mathtex_url(code)
-      "http://www.forkosh.com/mathtex.cgi?" + URI.escape(code)
-    end
-
-    def shorten_url(url)
+    def mathbin(code)
       sess = Patron::Session.new
       sess.timeout = 10
-      sess.base_url = "http://da.gd"
+      sess.base_url = "http://mathbin.net"
       sess.headers['User-Agent'] = 'mathbot/1.0'
 
-      resp = sess.get("/s?url=#{URI.escape(url)}&text=1&strip=1")
+      escaped_code = CGI.escape("[EQ]#{code}[/EQ]")
+      resp = sess.post("/", "name=mathbot&save=1&body=#{escaped_code}")
 
-      return "Could not shorten URL. Oops!" if resp.status >= 400
+      return "Could not post to mathbin.net. Oops!" if resp.status >= 400
 
-      resp.body
+      resp.url
     end
   end
 
   on :message, /^#{Regexp.escape nick}\S*[:,]\s*(.+)$/ do |m, code|
-    m.reply(shorten_url(mathtex_url(code)), true)
+    m.reply(mathbin(code), true)
   end
 end
 

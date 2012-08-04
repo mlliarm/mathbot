@@ -7,7 +7,7 @@ Usage
 -----
 ``` irc
 <scott> mathbot: \frac{\sqrt{2}}{2}
-<mathbot> scott: http://da.gd/BpMvD
+<mathbot> scott: http://mathbin.net/104308
 ```
 
 That's it!
